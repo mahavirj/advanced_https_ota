@@ -2,3 +2,24 @@
 # partition table layout, with a 4MB flash size
 CONFIG_ESPTOOLPY_FLASHSIZE_4MB=y
 CONFIG_PARTITION_TABLE_TWO_OTA=y
+
+# Use custom partition table
+CONFIG_PARTITION_TABLE_CUSTOM=y
+CONFIG_PARTITION_TABLE_CUSTOM_FILENAME="partitions_example.csv"
+
+# Enable firmware versioning from config option
+CONFIG_APP_PROJECT_VER_FROM_CONFIG=y
+CONFIG_APP_PROJECT_VER="1"
+
+# Enable firmware rollback and anti-rollback features
+CONFIG_BOOTLOADER_APP_ROLLBACK_ENABLE=y
+CONFIG_BOOTLOADER_APP_ANTI_ROLLBACK=y
+
+# Set initial secure version to 0
+CONFIG_BOOTLOADER_APP_SECURE_VERSION=0
+
+# Set secure version eFuse field size
+CONFIG_BOOTLOADER_APP_SEC_VER_SIZE_EFUSE_FIELD=32
+
+# Emulate secure version through flash partition for testing
+CONFIG_BOOTLOADER_EFUSE_SECURE_VERSION_EMULATE=y
