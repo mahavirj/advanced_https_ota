@@ -23,3 +23,6 @@ CONFIG_BOOTLOADER_APP_SEC_VER_SIZE_EFUSE_FIELD=32
 
 # Emulate secure version through flash partition for testing
 CONFIG_BOOTLOADER_EFUSE_SECURE_VERSION_EMULATE=y
+
+# Use firmware image hosted on github as URL
+ CONFIG_EXAMPLE_FIRMWARE_UPGRADE_URL="https://raw.githubusercontent.com/mahavirj/advanced_https_ota/master/test_firmware/advanced_https_ota.bin"
