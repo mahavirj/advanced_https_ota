@@ -1,0 +1,29 @@
+name: Build and Run Examples
+
+on: push
+
+jobs:
+  run-ethernet-based-examples:
+    name: Run examples on ethernet runners
+    strategy:
+      fail-fast: false
+      matrix:
+        # Some components that runs Ethernet tests are marked for IDF >= v5.0 only
+        # Hence, not considering IDF v4.x releases here. If we find a clean way
+        # to let pytest know about IDF release dependency then we may reintroduce
+        # the IDF v4.x in the list.
+        idf_ver: ["release-v5.0", "release-v5.1", "release-v5.2", "latest"]
+        idf_target: ["esp32"]
+    runs-on: [self-hosted, ESP32-ETHERNET-KIT]
+    container:
+      image: python:3.9-buster
+      options: --privileged # Privileged mode has access to serial ports
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/download-artifact@v3
+        with:
+          name: example_binaries_${{ matrix.idf_ver }}
+      - name: Install Python packages
+        env:
+          PIP_EXTRA_INDEX_URL: "https://dl.espressif.com/pypi/"
+        run: pip install --only-binary cryptography pytest-embedded pytest-embedded-serial-esp pytest-embedded-idf
